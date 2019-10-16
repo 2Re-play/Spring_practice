@@ -47,13 +47,11 @@ public class OrderController extends HttpServlet {
 
 		OrderService orderService = new OrderService();
 
-		Order order = new Order(itemNumber, description, priceEach, firstName, lastName, middleInitial, shippingAddress,
-				creditCard, creditCardNumber);
+		Order order = new Order(itemNumber, description, priceEach, firstName, lastName, middleInitial, shippingAddress, creditCard, creditCardNumber);
+		
 		request.setAttribute("order", order);
 
 		boolean cardNumberCheck = orderService.checkCreditCardNumebr(creditCardNumber, repeatCreditCardNumber);
-		System.out.println(creditCard);
-		System.out.println(itemNumber);
 
 		String page;
 

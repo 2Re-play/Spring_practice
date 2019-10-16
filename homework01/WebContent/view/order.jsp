@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <style>
   table {
-    width: 100%;
+    width: 500px;
     border: 1px solid #444444;
   }
   th, td {
@@ -19,10 +19,13 @@
   background-color : orange;
   }
   tbody {
-  background-color : white;
+  background-color :#F5ECCE;
   }
   body {
   background-color :#F5ECCE;
+  }
+  h1 {
+  text-align : center;
   }
 </style>
 </head>
@@ -39,7 +42,7 @@
 		<tbody>
 			<tr>
 				<td>cardNum</td>
-				<td>${order.creditCardNumber}</td>
+				<td>&#149 ${(order.creditCardNumber == "") ? "<I>No Value</I>" : order.creditCardNumber}</td>
 			</tr>
 			<tr>
 				<td>cardType</td>
@@ -47,31 +50,31 @@
 			</tr>
 			<tr>
 				<td>price</td>
-				<td>${order.priceEach}</td>
+				<td>${(order.priceEach == "") ? "<I>No Value</I>" : order.priceEach}</td>
 			</tr>
 			<tr>
 				<td>initial</td>
-				<td>${order.middleInitial}</td>
+				<td>${(order.middleInitial == "") ? "<I>No Value</I>" : order.middleInitial}</td>
 			</tr>
 			<tr>
 				<td>itemNum</td>
-				<td>${order.itemNumber}</td>
+				<td>${(order.itemNumber == "") ? "<I>No Value</I>" : order.itemNumber}</td>
 			</tr>
 			<tr>
 				<td>address</td>
-				<td>${order.shippingAddress}</td>
+				<td>${(order.shippingAddress == "") ? "<I>No Value</I>" : order.shippingAddress}</td>
 			</tr>
 			<tr>
 				<td>firstName</td>
-				<td>${order.firstName}</td>
+				<td>${(order.firstName == "") ? "<I>No Value</I>" : order.firstName}</td>
 			</tr>
 			<tr>
 				<td>description</td>
-				<td>${order.description}</td>
+				<td>${(order.description == "") ? "<I>No Value</I>" : order.description}</td>
 			</tr>
 			<tr>
 				<td>lastName</td>
-				<td>${order.lastName}</td>
+				<td>${(order.lastName == "") ? "<I>No Value</I>" : order.lastName}</td>
 			</tr>
 			<tr>
 			</tr>

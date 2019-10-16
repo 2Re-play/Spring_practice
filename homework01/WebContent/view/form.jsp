@@ -9,13 +9,13 @@
   body {
   background-color :#F5ECCE;
   }
-  h3 {
+  h1 {
   text-align : center;
   }
 </style>
 </head>
 <body>
-	<h3> A Sample Form</h3> <br/>
+	<h1> A Sample Form</h1> <br/>
 	<form action="/homework01/order" method="post">
 	Item Number : <input type="text" name="itemNumber"> <br/>
 	Description : <input type="text" name="description"> <br/>
