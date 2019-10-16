@@ -14,7 +14,7 @@ public class MainApp {
 		
 		person.play();
 		
-		context.close();
+		context.close(); 
 	}
 
 }
