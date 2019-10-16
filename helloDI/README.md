@@ -10,19 +10,20 @@ public class PetOwner {
     private AnimalType animal;
     
     public PetOwner() {
-        this.animal = new Dog();
+        /* 의존성 주입에서는 new 생성자를 사용하지 않는다. */
+        this.animal = new Dog(); 
     }
 }
 ```
 위의 코드는 의존성주입이 아닌 의존성 주입을 이해하기 위한 코드이다.  
 위에 코드를 보면 현재 PetOwner()객체는 AnimalType객체에게 의존하고있다.
 이러한 의존을 **의존성**이라고 하며, animal이라는 필드에게 값을 외부에서 넣어주는 것을 **주입**이라고한다.  
-이 말을 합쳐 **의존성 주입(Dependency Injection)**이라고 말한다. 
+이 말을 합쳐 **의존성 주입, Dependency Injection**이라고 말한다.   
 DI는 Spring framework에 의해 지원하는 디자인패턴이다.  
 DI를 통해 많은 객체들 사이의 coupling을 줄이고 framework에 의해 동적으로 의존성을 주입할 수 있다.
  
-이제 좀 더 의존성 주입에 대해 알아보자.
-**의존성 주입에서는 new 생성자를 사용하지 않는다.**
+이제 좀 더 의존성 주입에 대해 알아보자.  
+****
 
 ![Dependency Injection](./image/img1.png)
 
@@ -48,7 +49,7 @@ public class PetOwner {
     
     public PetOwner(AnimalType animal){
         this.animal = animal;
-    }
+        }
     }
 ```
 
