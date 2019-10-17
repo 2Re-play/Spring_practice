@@ -95,7 +95,7 @@ Spring을 사용하다보면 bean 이라는 용어가 많이 나오는데 bean�
 첫번째로 Spring Annotation을 사용하기 위해서 Spring Annotation을 활성화 시켜줘야한다.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8“ ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     ...
@@ -104,7 +104,10 @@ Spring을 사용하다보면 bean 이라는 용어가 많이 나오는데 bean�
 
    <context:annotation-config/>
 ```
+* xmlns:context="http://www.springframework.org/schema/context"
+* <context:annotation-config/>
 
+위 2개의 코드를 web.xml에 추가시켜 Spring Annotation을 활성화 시켰다.
 
 #### @Required Annotation
 
@@ -181,6 +184,9 @@ public class College {
 </bean>
 ```
 
+xml파일에서 <property name="student" ref="boy"/> property의 ref값에 주입시킬 bean의 id를 명시하여 의존성주입을 한다.
+
+#### @Autowired
 2) 어노테이션을 사용하여 의존성을 주입하는 방범
 
 type에 의해서 자동적으로 의존성을 주입해준다.
@@ -211,10 +217,86 @@ public class College {
 <bean id="college" class="College">
 </bean>
 ```
+College 클래스의 student 필드에 **@Autowired** 어노테이션을 사용하여 Boy라는 type을 가진 bean을 주입한다.
+
+##### 하지만!!, 만약 같은 type을 가진 bean이 여러개일때는 Spring container가 값을 어떻게 주입할까?? 이 경우에는 Spring Container는 값을 주입하지 않고 에러를 발생시킨다.  이 문제를 @Qualifier 어노테이션을 사용하여 해결할 수 있다.
+
 
 #### @Qualifier
 
+위에서 말한 상황에서 마법사같이 해결해줄 수 있는 어노테이션이 @Qualifier다.  
 같은 type의 객체가 1개 이상일 경우 어떠한 bean을 주입할지 모호하기 때문에
 qulifier value를 통해 구분하여 자동적으로 주입하게 한다.
 
 
+```java
+public class Boy {
+ private String name;
+ private int age;
+   
+ //   getters and setters ...
+}
+```
+```java
+public class College {
+ 
+@Autowired
+@Qualifier(value="tony")
+ private Boy student; 
+ 
+  //   getters ...
+}
+```
+
+```xml
+<bean id="boy1" class="Boy">
+ <qualifier value="rony"/>
+ <property name="name" value="Rony"/>
+ <property name="age" value="10"/>
+</bean>
+
+<bean id="boy2" class="Boy">
+ <qualifier value="tony"/>
+ <property name="name" value="Tony"/>
+ <property name="age" value="8"/>
+</bean>
+
+<bean id="college" class="College"> 
+</bean>
+```
+College 클래스에서 @Qualifier(value="tony")로 어노테이션을 추가하였다.  
+Qualifier는 type으로 bean을 찾아 의존성을 주입하지 않고 <qualifier value="tony"/>의 value값으로 구분해서 주입한다.
+
+#### @Resouce
+
+@Autowired 어노테이션과 기능은 비슷하지만 다른 점이 있다. 
+@Autowired 는 bean의 type에 따라 의존성주입을 하지만, @Resource 어노테이션은 beand의 unique한 id값을 통해 해당 bean을 의존성주입한다. 
+그렇다면, 어차피 @Autowired와 기능도 똑같고 같은 type의 bean이 여러개일 때 걱정도 안해도 되는 @Resource 어노테이션보다 왜 @Autowired 어노테이션을 더 많이 사용할까?  
+그 답은 Spring에서는 대부분 singleton bean으로 단 하나의 객체만을 생성하기 때문에 @Autowired 어노테이션을 더 자주 사용한다.
+
+```java
+public class College {
+  
+  @Resource(name="boy1")
+  private Boy student; 
+ 
+  //   getters and setters ...
+}
+```
+
+```xml
+<bean id="boy1" class="Boy">
+ <property name="name" value="Rony"/>
+ <property name="age" value="10"/>
+</bean>
+
+<bean id="boy2" class="Boy">
+ <property name="name" value="Tony"/>
+ <property name="age" value="8"/>
+</bean>
+
+<bean id="college" class="College">
+</bean>
+```
+
+xml파일에서 bean의 unique한 id값을 @Resource(name="boy1")의 name값으로 bean의 id를 값으로 넘겨 해당 bean을 의존성주입한다.
