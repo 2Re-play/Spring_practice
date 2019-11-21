@@ -95,13 +95,13 @@ public class SpringDaoImpl {
 
 - SQL query를 수행하기 위해서 jdbcTemplate객체의 query method를 사용하여 sql을 수행한다.
 ```java
-@Component("offersDao")
+@Component("offersDao") // bean 생성
 public class OffersDao {
     
     private JdbcTemplate jdbcTemplateObject;
     
-    @Autowired
-    public void setDataSource(DataSource dataSource) { // DI
+    @Autowired // 의존성주입
+    public void setDataSource(DataSource dataSource) { 
         this.jdbcTemplateObject = new JdbcTemplate(dataSource);
     }
     
@@ -109,7 +109,7 @@ public class OffersDao {
         
         return jdbcTemplateObject.query('select * from offers', new RowMapper<Offer>() {
             
-            public Offer mapRow(ResultSet re, int rowNum) throws SQLException {
+            public Offer mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Offer offer = new Offer();
                 
                 offer.setId(rs.getInt("id"));
@@ -127,6 +127,11 @@ public class OffersDao {
 - query method안에서 파리미터로 첫번째 인자는 sql문, 두번째 인자는 결과값을 mapping할 함수
 - RowMapper는 interface인데 앞에 왜 new가 붙어있을까? (인터페이스 객체를 생성할 수 없음)
 - 왜냐하면 익명클래스이기 때문에 앞에 new 키워드가 붙는다.
+- mapRow() method를 통해 쿼리의 결과값으로 넘어온 값들을 객체로 mapping한다.
+
+#### @Component() 어노테이션
+
+- 어노테이션의 인자로 넣은 이름의 bean을 xml 설정없이 자동 생성한다.
 
 
 
