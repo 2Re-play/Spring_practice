@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+.formtable {
+	width: 400px;
+	border: 1px solid blue;
+	margin:50px;
+	padding:10px;
+}
+
+.lable {
+	text-align:right;
+	vertical-align:top;
+}
+
+.error {
+	font-size:small;
+	color:red;
+	margin-left:10px;
+}
+
+input[type=submit]:hover {
+	background-color: #45a049;
+}
